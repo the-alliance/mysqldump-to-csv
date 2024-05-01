@@ -9,10 +9,10 @@ The script takes advantage of the structural similarities between MySQL INSERT s
 ## Getting Started - Local Setup
 1. Run `docker compose up -d` in the root directory to start the python container.
 2. Put your sql dump files in the volume directory.
-3. Run `docker compose exec mysqldump-python-container bash` to enter the python container.
+3. Run `docker exec -it mysqldump-python-container /bin/bash` to enter the python container.
 4. Run `cd volume` to navigate to the volume directory.
 5. Follow the usage instructions below to run the script.
-6. Once you have what you need, you can remove the sql and csv files from the volume directory.
+6. Once you have what you need, you can remove the sql and csv files from the volume directory. Append the instructions with ` > {file_name}` to save the output to a file.
 
 ## Usage
 Just run `python mysqldump_to_csv.py` followed by the filename of an SQL file. You can specify multiple SQL files, and they will all be concatenated into one CSV file. This script can also take in SQL files from standard input, which can be useful for turning a gzipped MySQL dump into a CSV file without uncompressing the MySQL dump.
