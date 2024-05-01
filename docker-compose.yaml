@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mysqldump-python-image
+    container_name: mysqldump-python-container
+    volumes:
+      - ./volume:/app/volume
+    ports:
+      - "5000:5000"
+    command: flask run --host=0.0.0.0
+    environment:
+      - FLASK_ENV=development
