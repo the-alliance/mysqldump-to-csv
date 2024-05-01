@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: python-flask-dev
+    container_name: flask-dev-container
+    volumes:
+      - ./green-portal:/app/green-portal
+    ports:
+      - "5000:5000"
+    command: flask run --host=0.0.0.0
+    depends_on:
+      - db
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=postgres://green_portal_dev:UhU3$154!eE%ZrHr@db/green_portal_dev_env
+  db:
+    image: postgres:latest
+    container_name: postgres-container
+    restart: always
+    environment:
+      POSTGRES_USER: green_portal_dev
+      POSTGRES_PASSWORD: UhU3$154!eE%ZrHr
+      POSTGRES_DB: green_portal_dev_env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
