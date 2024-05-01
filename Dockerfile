@@ -7,8 +7,11 @@ WORKDIR /app
 # Copy the rest of the application files
 COPY ./app.py .
 
+# Install dependencies
+RUN pip install --no-cache-dir flask
+
 # Expose the port on which Flask will run
-EXPOSE 5000
+EXPOSE 9000
 
 # Set the Flask environment variable
 ENV FLASK_ENV=development
