@@ -1,0 +1,6 @@
+*.sql
+*.gz
+*.tar
+*.tar.gz
+*.csv
+*.zip
