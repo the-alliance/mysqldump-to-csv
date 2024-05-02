@@ -1,5 +1,7 @@
 # MySQL dump to CSV
 ## Introduction
+This tool is great for sql dumps that have straight forward data. If your sql dump has conplex strings with multiple commas and quotes, note that you may end up with some extra columns. 
+
 This Python script converts MySQL dump files into CSV format. It is optimized to handle extraordinarily large dumps, such as those from Wikipedia.
 
 MySQL dumps contain a series of INSERT statements and can be difficult to import or manipulate, often requiring significant hardware upgrades. This script provides an easy way to convert these dump files into the universal CSV format.
