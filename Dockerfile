@@ -9,6 +9,7 @@ COPY ./app.py .
 
 # Install dependencies
 RUN pip install --no-cache-dir flask
+RUN pip install --no-cache-dir pandas
 
 # Expose the port on which Flask will run
 EXPOSE 9000

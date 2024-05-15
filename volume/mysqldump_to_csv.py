@@ -2,6 +2,8 @@
 import fileinput
 import csv
 import sys
+import pandas
+import io
 
 # This prevents prematurely closed pipes from raising
 # an exception in Python
@@ -45,8 +47,7 @@ def parse_values(values, outfile):
     reader = csv.reader([values], delimiter=',',
                         doublequote=False,
                         escapechar='\\',
-                        quotechar="'",
-                        strict=True
+                        quotechar="'"
     )
 
     writer = csv.writer(outfile, quoting=csv.QUOTE_MINIMAL, escapechar='\\', doublequote=False)
@@ -82,8 +83,14 @@ def parse_values(values, outfile):
         # Make sure to remove the semicolon and
         # the close paren.
         if latest_row[-1][-2:] == ");":
-            latest_row[-1] = latest_row[-1][:-2]
+            latest_row[-1] = latest_row[-1][:-3]
             writer.writerow(latest_row)
+            
+def parse_with_pandas(values, outfile):
+    values = values.partition('(')[2]
+    values = values[:-3]
+    df = pandas.read_csv(io.StringIO(values), sep=',', header=None, quotechar="'", skipinitialspace=True, encoding='utf-8')
+    df.to_csv(outfile, index=False, header=False)
 
 
 def main():
@@ -101,7 +108,8 @@ def main():
             values = get_values(line)
             if not values_sanity_check(values):
                 raise Exception("Getting substring of SQL INSERT statement after ' VALUES ' failed!")
-            parse_values(values, sys.stdout)
+            # parse_values(values, sys.stdout)
+            parse_with_pandas(values, sys.stdout)
     except KeyboardInterrupt:
         sys.exit(0)
 
